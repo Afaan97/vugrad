@@ -177,7 +177,6 @@ class Sigmoid(Op):
 
     @staticmethod
     def forward(context, input):
-
         sigx =  1 / (1 + np.exp(-input))
         context['sigx'] = sigx # store the sigmoid of x for the backward pass
         return sigx
@@ -186,6 +185,32 @@ class Sigmoid(Op):
     def backward(context, goutput):
         sigx = context['sigx'] # retrieve the sigmoid of x
         return goutput * sigx * (1 - sigx)
+
+class ReLu(Op):
+    """
+    Op for element-wise application of ReLu function
+    """
+
+    @staticmethod
+    def forward(context, input):
+        relu = np.maximum(0, input)
+        context['relu'] = relu # store the relu of x for the backward pass
+        return(relu)
+
+        # print(np.shape(input))
+        #
+        # if input > 0:
+        #     relu = input
+        # if input <= 0:
+        #     relu = 0
+        # context['relu'] = relu # store the relu of x for the backward pass
+        # return relu
+
+    @staticmethod
+    def backward(context, goutput):
+        relu = context['relu'] # retrieve the relu of x
+        # print((relu>0)*1)
+        return goutput * ((relu > 0) * 1)
 
 class Expand(Op):
     """

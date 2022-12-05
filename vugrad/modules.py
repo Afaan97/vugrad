@@ -12,8 +12,9 @@ class Linear(Module):
         super().__init__()
 
         # weights of the matrix transformation
-        glorot_std = np.sqrt(2.0 / (input_size + output_size)) # scalar for Glorot init
-        w = np.random.randn(output_size, input_size) * glorot_std
+        # glorot_std = np.sqrt(2.0 / (input_size + output_size)) # scalar for Glorot init
+        # w = np.random.randn(output_size, input_size) * glorot_std
+        w = np.random.randn(output_size, input_size)
         self.w = TensorNode(w)
 
         # weights of the bias (the translation)
